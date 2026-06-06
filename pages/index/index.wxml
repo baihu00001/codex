@@ -40,6 +40,7 @@
         <text>{{item.bidCount}} 次举牌</text>
         <text>{{item.status === 'floor' ? '优先剩余' : '剩余'}} {{item.countdown}}</text>
       </view>
+      <view class="seller-tag" wx:if="{{sellerName}}">{{sellerName}}</view>
     </view>
   </view>
 </view>
