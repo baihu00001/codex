@@ -1,0 +1,41 @@
+﻿name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install
+      - run: npm run lint
+
+  validate-structure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate page structure
+        run: |
+          echo "Checking WeChat Mini Program structure..."
+          errors=0
+          for page in $(node -e "const app = require('./app.json'); app.pages.forEach(p => console.log(p));"); do
+            for ext in js json wxml wxss; do
+              filepath="${page}.${ext}"
+              if [ ! -f "$filepath" ]; then
+                echo "ERROR: Missing $filepath"
+                errors=$((errors+1))
+              fi
+            done
+          done
+          if [ $errors -gt 0 ]; then
+            echo "Found $errors missing files!"
+            exit 1
+          fi
+          echo "All pages have complete file sets."
