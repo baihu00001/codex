@@ -624,3 +624,27 @@ textarea {
 .insert-image-btn:hover {
   background: #fed7aa;
 }
+.logo-picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  border: 2px dashed #d1d5db;
+  border-radius: var(--radius);
+  background: #f9fafb;
+  overflow: hidden;
+}
+
+.qr-picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 300px;
+  height: 220px;
+  border: 2px dashed #d1d5db;
+  border-radius: var(--radius);
+  background: #f9fafb;
+  overflow: hidden;
+}

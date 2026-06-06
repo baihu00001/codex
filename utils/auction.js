@@ -88,6 +88,67 @@ function hasPriorityLock(auction, userId, now) {
     && auction.priorityBuyerId !== userId
 }
 
+const imageSrcCache = {}
+
+function normalizeImageSrc(src) {
+  if (!src || typeof src !== 'string') return ''
+  if (src.indexOf('data:image/') !== 0) return src
+  if (imageSrcCache[src]) return imageSrcCache[src]
+  if (typeof wx === 'undefined' || !wx.getFileSystemManager || !wx.env) return src
+
+  const match = src.match(/^data:image\/(\w+);base64,([\s\S]+)$/)
+  if (!match) return src
+
+  try {
+    const ext = match[1] === 'jpeg' ? 'jpg' : match[1]
+    const filePath = `${wx.env.USER_DATA_PATH}/rich_${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`
+    wx.getFileSystemManager().writeFileSync(filePath, match[2].replace(/\s/g, ''), 'base64')
+    imageSrcCache[src] = filePath
+    return filePath
+  } catch (error) {
+    return src
+  }
+}
+
+function parseRichSegments(html) {
+  if (!html || typeof html !== 'string') return []
+
+  const imageRegExp = /<img\s[^>]*src\s*=\s*["']([^"']+)["'][^>]*\/?>/gi
+  const segments = []
+  let lastIndex = 0
+  let match
+
+  while ((match = imageRegExp.exec(html)) !== null) {
+    if (match.index > lastIndex) {
+      const textBefore = html.slice(lastIndex, match.index).trim()
+      if (textBefore) {
+        segments.push({ type: 'text', content: textBefore })
+      }
+    }
+
+    if (match[1]) {
+      const src = normalizeImageSrc(match[1])
+      if (src) {
+        segments.push({ type: 'image', src })
+      }
+    }
+    lastIndex = imageRegExp.lastIndex
+  }
+
+  if (lastIndex < html.length) {
+    const textAfter = html.slice(lastIndex).trim()
+    if (textAfter) {
+      segments.push({ type: 'text', content: textAfter })
+    }
+  }
+
+  if (segments.length === 0 && html.trim()) {
+    segments.push({ type: 'text', content: html.trim() })
+  }
+
+  return segments
+}
+
 module.exports = {
   applyDrop,
   cooldownLeft,
@@ -95,5 +156,6 @@ module.exports = {
   enrichAuction,
   hasPriorityLock,
   money,
+  parseRichSegments,
   statusText
 }

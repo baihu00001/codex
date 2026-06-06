@@ -8,6 +8,8 @@ Page({
     id: '',
     auction: null,
     records: [],
+    sellerProfile: {},
+    rulesSegments: [],
     bidButtonText: '举牌降价',
     buyButtonText: '立即拍下',
     bidDisabled: false,
@@ -61,6 +63,7 @@ Page({
     }
 
     const enriched = auctionUtil.enrichAuction(auction, now)
+    const sellerProfile = store.getSellerProfile()
     const cooldownLeft = auctionUtil.cooldownLeft(auction, user.id, now)
     const bidDisabled = enriched.status !== 'active' || cooldownLeft > 0
     const buyDisabled = enriched.status === 'sold'
@@ -75,9 +78,20 @@ Page({
       timeText: this.formatTime(record.createdAt)
     }))
 
+    const richSegments = auctionUtil.parseRichSegments(enriched.richContent)
+    ;(enriched.richImages || []).forEach((src) => {
+      if (src) {
+        richSegments.push({ type: 'image', src })
+      }
+    })
+
     this.setData({
-      auction: enriched,
+      auction: Object.assign(enriched, {
+        richSegments
+      }),
       records,
+      sellerProfile,
+      rulesSegments: auctionUtil.parseRichSegments(sellerProfile.auctionRules),
       bidDisabled,
       buyDisabled,
       bidButtonText: this.getBidText(enriched, cooldownLeft),
@@ -190,6 +204,15 @@ Page({
     store.saveAuction(auction)
 
     wx.navigateTo({ url: `/pages/order/order?id=${order.id}` })
+  },
+
+  previewQR() {
+    const qr = this.data.sellerProfile.wechatQR
+    if (!qr) return
+    wx.previewImage({
+      urls: [qr],
+      current: qr
+    })
   },
 
   flashPrice() {

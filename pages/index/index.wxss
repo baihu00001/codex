@@ -205,3 +205,11 @@
 .stat-dot.cool {
   background: #94a3b8;
 }
+
+.seller-tag {
+  margin-top: 14rpx;
+  padding-top: 14rpx;
+  border-top: 1rpx solid var(--border);
+  color: var(--muted);
+  font-size: 22rpx;
+}

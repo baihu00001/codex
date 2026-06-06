@@ -42,9 +42,12 @@
     <button class="button-danger" disabled="{{buyDisabled}}" bindtap="handleBuy">{{buyButtonText}}</button>
   </view>
 
-  <view class="card rich-card" wx:if="{{auction.richContent}}">
+  <view class="card rich-card" wx:if="{{auction.richSegments.length > 0}}">
     <view class="section-title">商品详情</view>
-    <rich-text class="rich-content" nodes="{{auction.richContent}}"></rich-text>
+    <block wx:for="{{auction.richSegments}}" wx:key="index">
+      <rich-text wx:if="{{item.type == 'text'}}" class="rich-content" nodes="{{item.content}}"></rich-text>
+      <image wx:if="{{item.type == 'image'}}" class="rich-image" src="{{item.src}}" mode="widthFix"></image>
+    </block>
   </view>
 
   <view class="card">
@@ -64,6 +67,43 @@
     <view class="info-row">
       <text class="label-text">人数上限</text>
       <text class="value-text">{{auction.maxParticipants || '不限'}}</text>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{sellerProfile.auctionRules}}">
+    <view class="section-title">拍卖规则</view>
+    <block wx:for="{{rulesSegments}}" wx:key="index">
+      <rich-text wx:if="{{item.type == 'text'}}" class="rich-content" nodes="{{item.content}}"></rich-text>
+      <image wx:if="{{item.type == 'image'}}" class="rich-image" src="{{item.src}}" mode="widthFix"></image>
+    </block>
+    <view wx:if="{{rulesSegments.length === 0}}" class="empty small">暂无规则</view>
+  </view>
+
+  <view class="card seller-card" wx:if="{{sellerProfile.storeName}}">
+    <view class="section-title">卖家信息</view>
+    <view class="seller-header">
+      <image wx:if="{{sellerProfile.storeLogo}}" class="seller-logo" src="{{sellerProfile.storeLogo}}" mode="aspectFill"></image>
+      <view wx:else class="seller-logo-placeholder">店</view>
+      <view class="seller-name">{{sellerProfile.storeName}}</view>
+    </view>
+    <view class="seller-desc" wx:if="{{sellerProfile.storeDescription}}">{{sellerProfile.storeDescription}}</view>
+    <view class="seller-contact" wx:if="{{sellerProfile.contactPerson || sellerProfile.contactPhone || sellerProfile.contactAddress}}">
+      <view class="contact-item" wx:if="{{sellerProfile.contactPerson}}">
+        <text class="contact-label">联系人</text>
+        <text class="contact-value">{{sellerProfile.contactPerson}}</text>
+      </view>
+      <view class="contact-item" wx:if="{{sellerProfile.contactPhone}}">
+        <text class="contact-label">电话</text>
+        <text class="contact-value contact-phone">{{sellerProfile.contactPhone}}</text>
+      </view>
+      <view class="contact-item" wx:if="{{sellerProfile.contactAddress}}">
+        <text class="contact-label">地址</text>
+        <text class="contact-value">{{sellerProfile.contactAddress}}</text>
+      </view>
+    </view>
+    <view class="qr-section" wx:if="{{sellerProfile.wechatQR}}" bindtap="previewQR">
+      <image class="qr-thumb" src="{{sellerProfile.wechatQR}}" mode="aspectFit"></image>
+      <text class="qr-tip">点击查看微信二维码</text>
     </view>
   </view>
 

@@ -213,3 +213,102 @@
   color: var(--muted);
   font-size: 24rpx;
 }
+/* 卖家信息卡片 */
+.seller-card {
+  margin-bottom: 20rpx;
+}
+
+.seller-header {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.seller-logo {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 12rpx;
+  border: 1rpx solid var(--border);
+}
+
+.seller-logo-placeholder {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 12rpx;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 28rpx;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seller-name {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.seller-desc {
+  margin-bottom: 14rpx;
+  color: var(--muted);
+  font-size: 24rpx;
+  line-height: 1.6;
+}
+
+.seller-contact {
+  padding-top: 8rpx;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 10rpx 0;
+}
+
+.contact-label {
+  color: var(--muted);
+  font-size: 23rpx;
+  min-width: 64rpx;
+}
+
+.contact-value {
+  color: var(--ink);
+  font-size: 25rpx;
+  font-weight: 500;
+}
+
+.contact-phone {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.qr-section {
+  margin-top: 18rpx;
+  padding-top: 18rpx;
+  border-top: 1rpx solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.qr-thumb {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 8rpx;
+  border: 1rpx solid var(--border);
+}
+
+.qr-tip {
+  color: var(--accent);
+  font-size: 23rpx;
+}
+.rich-image {
+  display: block;
+  width: 100%;
+  margin: 12rpx 0;
+  border-radius: 8rpx;
+}

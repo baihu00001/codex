@@ -9,10 +9,23 @@ function todayDate() {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`
 }
 
+function persistTempImage(tempFilePath) {
+  try {
+    const extMatch = tempFilePath.match(/\.(\w+)$/)
+    const ext = extMatch ? extMatch[1] : 'jpg'
+    const filePath = `${wx.env.USER_DATA_PATH}/rich_${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`
+    wx.getFileSystemManager().copyFileSync(tempFilePath, filePath)
+    return filePath
+  } catch (error) {
+    return tempFilePath
+  }
+}
+
 Page({
   data: {
     image: '',
     richContent: '',
+    richImages: [],
     date: todayDate(),
     time: '23:59'
   },
@@ -32,7 +45,6 @@ Page({
   },
 
   insertImage() {
-    const that = this
     wx.chooseMedia({
       count: 1,
       mediaType: ['image'],
@@ -40,23 +52,15 @@ Page({
       success: (res) => {
         const file = res.tempFiles && res.tempFiles[0]
         if (!file) return
-        wx.showLoading({ title: '处理中...' })
-        // 读取文件并转为 base64
-        const fs = wx.getFileSystemManager()
-        try {
-          const base64 = fs.readFileSync(file.tempFilePath, 'base64')
-          // 用 Canvas 压缩图片，但小程序环境简化处理：直接限制大小
-          const ext = file.tempFilePath.match(/\.(\w+)$/)?.[1] || 'png'
-          const mime = ext === 'jpg' ? 'jpeg' : ext
-          const imgTag = `<img src="data:image/${mime};base64,${base64}" style="max-width:100%;border-radius:8rpx;margin:8rpx 0">`
-          const current = that.data.richContent || ''
-          that.setData({ richContent: current + '\n' + imgTag })
-          wx.hideLoading()
-          wx.showToast({ title: '图片已插入', icon: 'success' })
-        } catch (e) {
-          wx.hideLoading()
-          wx.showToast({ title: '图片处理失败', icon: 'none' })
-        }
+
+        const imagePath = persistTempImage(file.tempFilePath)
+        const richImages = (this.data.richImages || []).concat(imagePath)
+        const current = this.data.richContent || ''
+        this.setData({
+          richImages,
+          richContent: `${current}\n<p>[图片${richImages.length}]</p>`
+        })
+        wx.showToast({ title: '图片已插入', icon: 'success' })
       }
     })
   },
@@ -98,6 +102,7 @@ Page({
       title: values.title,
       description: values.description || '卖家暂未填写详细描述',
       richContent: values.richContent || '',
+      richImages: this.data.richImages || [],
       image: this.data.image || '/assets/product-sample.svg',
       stock: Number(values.stock || 1),
       startPrice,
