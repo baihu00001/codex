@@ -25,19 +25,17 @@ jobs:
         run: |
           echo "Checking WeChat Mini Program structure..."
           errors=0
-          for page in $(node -e "
-            const app = require('./app.json');
-            app.pages.forEach(p => console.log(p));
-          "); do
+          for page in $(node -e "const app = require('./app.json'); app.pages.forEach(p => console.log(p));"); do
             for ext in js json wxml wxss; do
-              if [ ! -f \"${page}.${ext}\" ]; then
-                echo \"ERROR: Missing ${page}.${ext}\"
+              filepath="${page}.${ext}"
+              if [ ! -f "$filepath" ]; then
+                echo "ERROR: Missing $filepath"
                 errors=$((errors+1))
               fi
             done
           done
           if [ $errors -gt 0 ]; then
-            echo \"Found $errors missing files!\"
+            echo "Found $errors missing files!"
             exit 1
           fi
-          echo \"All pages have complete file sets.\"
+          echo "All pages have complete file sets."
