@@ -1,0 +1,34 @@
+﻿{
+  "env": {
+    "es2021": true,
+    "browser": false
+  },
+  "globals": {
+    "wx": "readonly",
+    "App": "readonly",
+    "Page": "readonly",
+    "Component": "readonly",
+    "getApp": "readonly",
+    "getCurrentPages": "readonly",
+    "console": "readonly",
+    "setTimeout": "readonly",
+    "clearTimeout": "readonly",
+    "setInterval": "readonly",
+    "clearInterval": "readonly"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "script"
+  },
+  "rules": {
+    "no-unused-vars": "warn",
+    "no-undef": "error",
+    "no-console": "off",
+    "semi": ["warn", "always"],
+    "quotes": ["warn", "single"],
+    "eqeqeq": ["warn", "always"],
+    "no-var": "warn",
+    "prefer-const": "warn"
+  },
+  "extends": "eslint:recommended"
+}
