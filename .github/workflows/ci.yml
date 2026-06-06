@@ -14,8 +14,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "npm"
-      - run: npm ci
+      - run: npm install
       - run: npm run lint
 
   validate-structure:
@@ -31,14 +30,14 @@ jobs:
             app.pages.forEach(p => console.log(p));
           "); do
             for ext in js json wxml wxss; do
-              if [ ! -f "${page}.${ext}" ]; then
-                echo "ERROR: Missing ${page}.${ext}"
+              if [ ! -f \"${page}.${ext}\" ]; then
+                echo \"ERROR: Missing ${page}.${ext}\"
                 errors=$((errors+1))
               fi
             done
           done
           if [ $errors -gt 0 ]; then
-            echo "Found $errors missing files!"
+            echo \"Found $errors missing files!\"
             exit 1
           fi
-          echo "All pages have complete file sets."
+          echo \"All pages have complete file sets.\"
