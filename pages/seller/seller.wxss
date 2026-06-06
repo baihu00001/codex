@@ -1,0 +1,120 @@
+.seller-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 164rpx;
+  margin-bottom: 20rpx;
+  padding: 28rpx 32rpx;
+  border-radius: 20rpx;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.seller-head::after {
+  content: "";
+  position: absolute;
+  right: -10rpx;
+  bottom: -40rpx;
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.2), transparent 70%);
+}
+
+.seller-title {
+  font-size: 40rpx;
+  font-weight: 800;
+  letter-spacing: -0.5rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.seller-subtitle {
+  margin-top: 6rpx;
+  color: #94a3b8;
+  font-size: 24rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.seller-chip {
+  padding: 8rpx 18rpx;
+  border-radius: 20rpx;
+  background: rgba(249, 115, 22, 0.2);
+  color: #fdba74;
+  font-size: 22rpx;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+  border: 1rpx solid rgba(249, 115, 22, 0.3);
+}
+
+.metrics {
+  margin-bottom: 20rpx;
+}
+
+.metric-card {
+  padding: 26rpx 18rpx;
+  border: 1rpx solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s;
+}
+
+.metric-card:active {
+  transform: scale(0.97);
+}
+
+.metric-value {
+  color: var(--accent);
+  font-size: 44rpx;
+  font-weight: 900;
+  letter-spacing: -0.5rpx;
+}
+
+.metric-label {
+  margin-top: 6rpx;
+  color: var(--muted);
+  font-size: 23rpx;
+}
+
+.action {
+  margin-top: 14rpx;
+}
+
+.action .button-primary {
+  height: 92rpx;
+  line-height: 92rpx;
+  border-radius: var(--radius);
+  font-size: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(249, 115, 22, 0.3);
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid var(--border);
+  color: var(--ink-soft);
+  font-size: 25rpx;
+}
+
+.info-row:last-child {
+  border-bottom: 0;
+}
+
+.info-row .value-text {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.section-divider {
+  height: 1rpx;
+  margin: 24rpx 0;
+  background: var(--border);
+}

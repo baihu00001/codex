@@ -1,0 +1,42 @@
+<view class="page">
+  <view class="section-title">拍卖进度</view>
+  <view wx:if="{{auctions.length === 0}}" class="empty">暂无拍卖数据</view>
+
+  <view wx:for="{{auctions}}" wx:key="id" class="manage-card" bindtap="goDetail" data-id="{{item.id}}">
+    <view class="manage-top">
+      <view class="manage-title">{{item.title}}</view>
+      <view class="tag {{item.status === 'sold' ? 'green' : item.status === 'ended' ? 'gray' : ''}}">{{item.statusLabel}}</view>
+    </view>
+    <view class="manage-price">¥{{item.priceText}}</view>
+    <view class="manage-grid">
+      <view>
+        <view class="cell-value">{{item.participantCount}}</view>
+        <view class="cell-label">参与人数</view>
+      </view>
+      <view>
+        <view class="cell-value">{{item.bidCount}}</view>
+        <view class="cell-label">举牌次数</view>
+      </view>
+      <view>
+        <view class="cell-value">{{item.countdown}}</view>
+        <view class="cell-label">{{item.status === 'floor' ? '优先剩余' : '剩余时间'}}</view>
+      </view>
+    </view>
+    <view class="manage-footer">
+      <text>底价 ¥{{item.reservePriceText}}</text>
+      <text wx:if="{{item.lastBidderName}}">最后举牌：{{item.lastBidderName}}</text>
+      <text wx:else>暂无举牌</text>
+    </view>
+  </view>
+
+  <view class="section-title orders-title">成交记录</view>
+  <view wx:if="{{orders.length === 0}}" class="empty">暂无成交订单</view>
+
+  <view wx:for="{{orders}}" wx:key="id" class="order-row">
+    <view>
+      <view class="order-title">{{item.title}}</view>
+      <view class="order-meta">{{item.method}} · {{item.buyerName}}</view>
+    </view>
+    <view class="order-price">¥{{item.priceText}}</view>
+  </view>
+</view>

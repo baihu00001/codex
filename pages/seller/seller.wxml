@@ -1,0 +1,42 @@
+<view class="page">
+  <view class="seller-head">
+    <view>
+      <view class="seller-title">卖家中心</view>
+      <view class="seller-subtitle">发布商品，监控降价进度和成交</view>
+    </view>
+    <view class="seller-chip">原型版</view>
+  </view>
+
+  <view class="grid-2 metrics">
+    <view class="metric-card">
+      <view class="metric-value">{{stats.active}}</view>
+      <view class="metric-label">进行中</view>
+    </view>
+    <view class="metric-card">
+      <view class="metric-value">{{stats.sold}}</view>
+      <view class="metric-label">已成交</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">常用操作</view>
+    <button class="button-primary action" bindtap="goPublish">发布新拍卖</button>
+    <button class="button-plain action" bindtap="goManage">拍卖管理</button>
+  </view>
+
+  <view class="card">
+    <view class="section-title">经营概览</view>
+    <view class="info-row">
+      <text>触底待成交</text>
+      <text>{{stats.floor}} 场</text>
+    </view>
+    <view class="info-row">
+      <text>累计举牌</text>
+      <text>{{stats.bidCount}} 次</text>
+    </view>
+    <view class="info-row">
+      <text>成交订单</text>
+      <text>{{stats.orderCount}} 单</text>
+    </view>
+  </view>
+</view>

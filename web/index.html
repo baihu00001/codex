@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>动态降价拍卖 Web 试用版</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">¥</div>
+        <div>
+          <div class="brand-title">降价拍卖</div>
+          <div class="brand-subtitle">Web 试用版</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <button class="nav-item active" data-view="market">拍卖大厅</button>
+        <button class="nav-item" data-view="seller">卖家中心</button>
+        <button class="nav-item" data-view="publish">发布拍卖</button>
+        <button class="nav-item" data-view="manage">拍卖管理</button>
+      </nav>
+      <div class="sidebar-note">
+        数据保存在浏览器 localStorage。刷新不会丢，清缓存会重置。
+      </div>
+    </aside>
+
+    <main class="main">
+      <section id="market" class="view active">
+        <div class="page-head">
+          <div>
+            <h1>拍卖大厅</h1>
+            <p>举牌一次，系统随机降价一次，价格不会跌破卖家保底价。</p>
+          </div>
+          <button class="ghost-button" id="resetDataBtn">重置演示数据</button>
+        </div>
+        <div id="auctionList" class="auction-grid"></div>
+      </section>
+
+      <section id="detail" class="view">
+        <button class="text-button" data-view="market">返回拍卖大厅</button>
+        <div id="detailPanel"></div>
+      </section>
+
+      <section id="seller" class="view">
+        <div class="page-head">
+          <div>
+            <h1>卖家中心</h1>
+            <p>查看进行中、触底、成交和累计举牌数据。</p>
+          </div>
+        </div>
+        <div id="sellerStats" class="stats-grid"></div>
+        <div class="quick-actions">
+          <button class="primary-button" data-view="publish">发布新拍卖</button>
+          <button class="ghost-button" data-view="manage">查看拍卖管理</button>
+        </div>
+      </section>
+
+      <section id="publish" class="view">
+        <div class="page-head">
+          <div>
+            <h1>发布拍卖</h1>
+            <p>填写参数后会立即出现在拍卖大厅。</p>
+          </div>
+        </div>
+        <form id="publishForm" class="form-card">
+          <label>
+            商品标题
+            <input name="title" placeholder="例如：限量手作香薰礼盒" required>
+          </label>
+          <label>
+            商品描述
+            <textarea name="description" placeholder="说明商品亮点、规格、瑕疵和发货方式"></textarea>
+          </label>
+          <label>
+            商品详情（支持HTML富文本）
+            <textarea name="richContent" id="richContentInput" class="rich-textarea" placeholder="可粘贴HTML内容，如产品亮点、规格参数等格式化介绍；也可点击下方按钮插入图片"></textarea>
+            <div class="field-hint"><span>支持 HTML 标签。点击右侧按钮插入本地图片：</span><button type="button" class="insert-image-btn" id="insertImageBtn">+ 插入图片</button></div>
+          </label>
+          <div class="form-grid">
+            <label>起拍价<input name="startPrice" type="number" step="0.01" value="299" required></label>
+            <label>保底价<input name="reservePrice" type="number" step="0.01" value="188" required></label>
+            <label>最小降幅<input name="minDrop" type="number" step="0.01" value="3" required></label>
+            <label>最大降幅<input name="maxDrop" type="number" step="0.01" value="15" required></label>
+            <label>库存<input name="stock" type="number" value="1" required></label>
+            <label>冷却秒数<input name="cooldownSeconds" type="number" value="10" required></label>
+            <label>最大参与人数<input name="maxParticipants" type="number" value="30"></label>
+            <label>截拍小时数<input name="durationHours" type="number" value="4" required></label>
+          </div>
+          <button class="primary-button" type="submit">发布拍卖</button>
+        </form>
+      </section>
+
+      <section id="manage" class="view">
+        <div class="page-head">
+          <div>
+            <h1>拍卖管理</h1>
+            <p>监控拍卖状态、参与数据和成交记录。</p>
+          </div>
+        </div>
+        <div id="manageList" class="manage-list"></div>
+        <h2>成交记录</h2>
+        <div id="orderList" class="order-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="./app.js"></script>
+</body>
+</html>

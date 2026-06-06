@@ -1,0 +1,81 @@
+<view class="page" wx:if="{{auction}}">
+  <image class="detail-cover" src="{{auction.image}}" mode="aspectFill"></image>
+
+  <view class="card headline">
+    <view class="title-row">
+      <view class="detail-title">{{auction.title}}</view>
+      <view class="tag {{auction.status === 'sold' ? 'green' : auction.status === 'ended' ? 'gray' : ''}}">{{auction.statusLabel}}</view>
+    </view>
+    <view class="description">{{auction.description}}</view>
+
+    <view class="price-panel {{pricePulse ? 'pulse' : ''}}">
+      <view class="price-label">当前成交价</view>
+      <view>
+        <text class="currency">¥</text>
+        <text class="current-price">{{auction.priceText}}</text>
+      </view>
+      <view class="price-range">起拍 ¥{{auction.startPriceText}} · 保底 ¥{{auction.reservePriceText}}</view>
+    </view>
+
+    <view class="stats-grid">
+      <view class="stat-card">
+        <view class="stat-value">{{auction.participantCount}}</view>
+        <view class="stat-label">参与人数</view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-value">{{auction.bidCount}}</view>
+        <view class="stat-label">举牌次数</view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-value">{{auction.countdown}}</view>
+        <view class="stat-label">{{auction.status === 'floor' ? '优先剩余' : '剩余时间'}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="notice" wx:if="{{auction.status === 'floor'}}">
+    已触及保底价，{{auction.priorityBuyerName}} 拥有优先购买权。
+  </view>
+
+  <view class="action-bar">
+    <button class="button-primary" disabled="{{bidDisabled}}" bindtap="handleBid">{{bidButtonText}}</button>
+    <button class="button-danger" disabled="{{buyDisabled}}" bindtap="handleBuy">{{buyButtonText}}</button>
+  </view>
+
+  <view class="card rich-card" wx:if="{{auction.richContent}}">
+    <view class="section-title">商品详情</view>
+    <rich-text class="rich-content" nodes="{{auction.richContent}}"></rich-text>
+  </view>
+
+  <view class="card">
+    <view class="section-title">拍卖参数</view>
+    <view class="info-row">
+      <text class="label-text">随机降幅</text>
+      <text class="value-text">¥{{auction.minDrop}} - ¥{{auction.maxDrop}}</text>
+    </view>
+    <view class="info-row">
+      <text class="label-text">举牌冷却</text>
+      <text class="value-text">{{auction.cooldownSeconds}} 秒</text>
+    </view>
+    <view class="info-row">
+      <text class="label-text">库存</text>
+      <text class="value-text">{{auction.stock}} 件</text>
+    </view>
+    <view class="info-row">
+      <text class="label-text">人数上限</text>
+      <text class="value-text">{{auction.maxParticipants || '不限'}}</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">举牌记录</view>
+    <view wx:if="{{records.length === 0}}" class="empty small">暂无举牌，等你来打下第一口价</view>
+    <view wx:for="{{records}}" wx:key="id" class="record-row">
+      <view>
+        <view class="record-user">{{item.userName}}</view>
+        <view class="record-time">{{item.timeText}}</view>
+      </view>
+      <view class="record-price">-¥{{item.dropText}} → ¥{{item.priceText}}</view>
+    </view>
+  </view>
+</view>

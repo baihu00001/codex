@@ -1,0 +1,30 @@
+<view class="page" wx:if="{{order}}">
+  <view class="result-card">
+    <view class="success-mark">✓</view>
+    <view class="result-title">模拟支付成功</view>
+    <view class="result-subtitle">订单已生成，可在卖家端查看成交记录</view>
+  </view>
+
+  <view class="card">
+    <image class="order-cover" src="{{order.image}}" mode="aspectFill"></image>
+    <view class="order-title">{{order.title}}</view>
+    <view class="info-row">
+      <text>成交价</text>
+      <text class="price">¥{{order.priceText}}</text>
+    </view>
+    <view class="info-row">
+      <text>成交方式</text>
+      <text>{{order.method}}</text>
+    </view>
+    <view class="info-row">
+      <text>买家</text>
+      <text>{{order.buyerName}}</text>
+    </view>
+    <view class="info-row">
+      <text>订单号</text>
+      <text>{{order.id}}</text>
+    </view>
+  </view>
+
+  <button class="button-primary" bindtap="backHome">返回拍卖</button>
+</view>

@@ -1,0 +1,99 @@
+.manage-card,
+.order-row {
+  box-sizing: border-box;
+  margin-bottom: 16rpx;
+  padding: 22rpx 24rpx;
+  border: 1rpx solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s;
+}
+
+.manage-card:active {
+  transform: scale(0.985);
+}
+
+.manage-top,
+.manage-footer,
+.order-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.manage-title {
+  flex: 1;
+  min-width: 0;
+  color: var(--ink);
+  font-size: 30rpx;
+  font-weight: 700;
+  letter-spacing: -0.2rpx;
+}
+
+.manage-price {
+  margin-top: 14rpx;
+  color: var(--accent);
+  font-size: 48rpx;
+  font-weight: 900;
+  letter-spacing: -0.5rpx;
+}
+
+.manage-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.35fr;
+  gap: 10rpx;
+  margin-top: 16rpx;
+}
+
+.manage-grid > view {
+  padding: 16rpx 10rpx;
+  border-radius: var(--radius-sm);
+  background: #f8fafc;
+  border: 1rpx solid #f1f5f9;
+  text-align: center;
+}
+
+.cell-value {
+  color: var(--ink);
+  font-size: 26rpx;
+  font-weight: 800;
+}
+
+.cell-label {
+  margin-top: 4rpx;
+  color: var(--muted);
+  font-size: 21rpx;
+}
+
+.manage-footer {
+  margin-top: 16rpx;
+  padding-top: 14rpx;
+  border-top: 1rpx solid var(--border);
+  color: var(--muted);
+  font-size: 22rpx;
+}
+
+.orders-title {
+  margin-top: 30rpx;
+  padding-top: 8rpx;
+}
+
+.order-title {
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 27rpx;
+}
+
+.order-meta {
+  margin-top: 6rpx;
+  color: var(--muted);
+  font-size: 22rpx;
+}
+
+.order-price {
+  color: var(--accent);
+  font-weight: 900;
+  font-size: 28rpx;
+}

@@ -1,0 +1,80 @@
+<view class="page">
+  <form bindsubmit="handleSubmit">
+    <view class="card">
+      <view class="section-title">商品信息</view>
+      <view class="field">
+        <view class="label">商品标题</view>
+        <input class="input" name="title" placeholder="例如：限量手作香薰礼盒" />
+      </view>
+      <view class="field">
+        <view class="label">商品描述</view>
+        <textarea class="textarea" name="description" placeholder="说明商品亮点、规格、瑕疵和发货方式" />
+      </view>
+      <view class="field">
+        <view class="label">商品图片</view>
+        <view class="image-picker" bindtap="chooseImage">
+          <image wx:if="{{image}}" src="{{image}}" mode="aspectFill"></image>
+          <text wx:else>点击选择图片，可不选</text>
+        </view>
+      </view>
+      <view class="field">
+        <view class="label">商品详情（支持HTML富文本）</view>
+        <textarea class="textarea rich-textarea" name="richContent" value="{{richContent}}" placeholder="可粘贴HTML内容，如产品亮点、规格参数等格式化介绍；也可点击下方按钮插入图片" />
+        <view class="field-hint">
+          <text>支持 HTML 标签。点击右侧按钮插入本地图片：</text>
+          <button class="insert-image-btn" bindtap="insertImage" size="mini">+ 插入图片</button>
+        </view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="section-title">拍卖参数</view>
+      <view class="grid-2">
+        <view class="field">
+          <view class="label">起拍价</view>
+          <input class="input" type="digit" name="startPrice" placeholder="299" />
+        </view>
+        <view class="field">
+          <view class="label">保底价</view>
+          <input class="input" type="digit" name="reservePrice" placeholder="188" />
+        </view>
+        <view class="field">
+          <view class="label">最小降幅</view>
+          <input class="input" type="digit" name="minDrop" placeholder="3" />
+        </view>
+        <view class="field">
+          <view class="label">最大降幅</view>
+          <input class="input" type="digit" name="maxDrop" placeholder="15" />
+        </view>
+        <view class="field">
+          <view class="label">库存</view>
+          <input class="input" type="number" name="stock" placeholder="1" />
+        </view>
+        <view class="field">
+          <view class="label">冷却秒数</view>
+          <input class="input" type="number" name="cooldownSeconds" placeholder="10" />
+        </view>
+      </view>
+
+      <view class="field">
+        <view class="label">最大参与人数</view>
+        <input class="input" type="number" name="maxParticipants" placeholder="不填表示不限" />
+      </view>
+
+      <view class="field">
+        <view class="label">截拍日期</view>
+        <picker mode="date" value="{{date}}" bindchange="onDateChange">
+          <view class="picker">{{date}}</view>
+        </picker>
+      </view>
+      <view class="field">
+        <view class="label">截拍时间</view>
+        <picker mode="time" value="{{time}}" bindchange="onTimeChange">
+          <view class="picker">{{time}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <button class="button-primary" formType="submit">发布拍卖</button>
+  </form>
+</view>
