@@ -21,62 +21,45 @@
         <button class="nav-item" data-view="seller">卖家中心</button>
         <button class="nav-item" data-view="publish">发布拍卖</button>
         <button class="nav-item" data-view="manage">拍卖管理</button>
+        <button class="nav-item" data-view="seller-profile">店铺信息</button>
       </nav>
-      <div class="sidebar-note">
-        数据保存在浏览器 localStorage。刷新不会丢，清缓存会重置。
-      </div>
+      <div class="sidebar-note">数据保存在浏览器 localStorage。刷新不会丢，清缓存会重置。</div>
     </aside>
 
     <main class="main">
+      <!-- 拍卖大厅 -->
       <section id="market" class="view active">
         <div class="page-head">
-          <div>
-            <h1>拍卖大厅</h1>
-            <p>举牌一次，系统随机降价一次，价格不会跌破卖家保底价。</p>
-          </div>
+          <div><h1>拍卖大厅</h1><p>举牌一次，系统随机降价一次，价格不会跌破卖家保底价。</p></div>
           <button class="ghost-button" id="resetDataBtn">重置演示数据</button>
         </div>
         <div id="auctionList" class="auction-grid"></div>
       </section>
 
+      <!-- 买家详情 -->
       <section id="detail" class="view">
-        <button class="text-button" data-view="market">返回拍卖大厅</button>
+        <button class="text-button" data-view="market">← 返回拍卖大厅</button>
         <div id="detailPanel"></div>
       </section>
 
+      <!-- 卖家中心 -->
       <section id="seller" class="view">
-        <div class="page-head">
-          <div>
-            <h1>卖家中心</h1>
-            <p>查看进行中、触底、成交和累计举牌数据。</p>
-          </div>
-        </div>
+        <div class="page-head"><div><h1>卖家中心</h1><p>发布商品，监控降价进度和成交。</p></div></div>
         <div id="sellerStats" class="stats-grid"></div>
         <div class="quick-actions">
           <button class="primary-button" data-view="publish">发布新拍卖</button>
           <button class="ghost-button" data-view="manage">查看拍卖管理</button>
+          <button class="ghost-button" data-view="seller-profile">编辑店铺信息</button>
         </div>
       </section>
 
+      <!-- 发布拍卖 -->
       <section id="publish" class="view">
-        <div class="page-head">
-          <div>
-            <h1>发布拍卖</h1>
-            <p>填写参数后会立即出现在拍卖大厅。</p>
-          </div>
-        </div>
+        <div class="page-head"><div><h1>发布拍卖</h1><p>填写参数后会立即出现在拍卖大厅。</p></div></div>
         <form id="publishForm" class="form-card">
-          <label>
-            商品标题
-            <input name="title" placeholder="例如：限量手作香薰礼盒" required>
-          </label>
-          <label>
-            商品描述
-            <textarea name="description" placeholder="说明商品亮点、规格、瑕疵和发货方式"></textarea>
-          </label>
-          <label>
-            商品详情（支持HTML富文本）
-            <textarea name="richContent" id="richContentInput" class="rich-textarea" placeholder="可粘贴HTML内容，如产品亮点、规格参数等格式化介绍；也可点击下方按钮插入图片"></textarea>
+          <label>商品标题<input name="title" placeholder="例如：限量手作香薰礼盒" required></label>
+          <label>商品描述<textarea name="description" placeholder="说明商品亮点、规格、瑕疵和发货方式"></textarea></label>
+          <label>商品详情（支持HTML富文本）<textarea name="richContent" id="richContentInput" class="rich-textarea" placeholder="可粘贴HTML内容；也可点击下方按钮插入图片"></textarea>
             <div class="field-hint"><span>支持 HTML 标签。点击右侧按钮插入本地图片：</span><button type="button" class="insert-image-btn" id="insertImageBtn">+ 插入图片</button></div>
           </label>
           <div class="form-grid">
@@ -93,16 +76,40 @@
         </form>
       </section>
 
+      <!-- 拍卖管理列表 -->
       <section id="manage" class="view">
-        <div class="page-head">
-          <div>
-            <h1>拍卖管理</h1>
-            <p>监控拍卖状态、参与数据和成交记录。</p>
-          </div>
-        </div>
+        <div class="page-head"><div><h1>拍卖管理</h1><p>监控拍卖状态、参与数据和成交记录。</p></div></div>
         <div id="manageList" class="manage-list"></div>
         <h2>成交记录</h2>
         <div id="orderList" class="order-list"></div>
+      </section>
+
+      <!-- 管理详情 -->
+      <section id="manage-detail" class="view">
+        <button class="text-button" data-view="manage">← 返回管理列表</button>
+        <div id="manageDetailPanel"></div>
+      </section>
+
+      <!-- 店铺信息编辑 -->
+      <section id="seller-profile" class="view">
+        <div class="page-head"><div><h1>店铺信息</h1><p>设置店铺资料、联系方式和拍卖规则。</p></div></div>
+        <form id="sellerProfileForm" class="form-card">
+          <label>店铺名称<input name="storeName" placeholder="输入店铺名称" required></label>
+          <label>店铺Logo
+            <div id="profileLogoPreview" class="logo-picker" style="cursor:pointer"></div>
+            <button type="button" class="ghost-button" id="profileLogoBtn" style="margin-top:8px">选择Logo图片</button>
+          </label>
+          <label>店铺简介<textarea name="storeDescription" placeholder="简单介绍你的店铺"></textarea></label>
+          <label>联系人<input name="contactPerson" placeholder="姓名"></label>
+          <label>联系电话<input name="contactPhone" type="tel" placeholder="手机号"></label>
+          <label>联系地址<input name="contactAddress" placeholder="发货/自提地址"></label>
+          <label>微信二维码
+            <div id="profileQRPreview" class="qr-picker" style="cursor:pointer"></div>
+            <button type="button" class="ghost-button" id="profileQRBtn" style="margin-top:8px">上传二维码图片</button>
+          </label>
+          <label>拍卖规则（支持HTML）<textarea name="auctionRules" class="rich-textarea" placeholder="设置拍卖规则"></textarea></label>
+          <button class="primary-button" type="submit">保存</button>
+        </form>
       </section>
     </main>
   </div>
