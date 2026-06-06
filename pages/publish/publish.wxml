@@ -19,10 +19,13 @@
       </view>
       <view class="field">
         <view class="label">商品详情（支持HTML富文本）</view>
-        <textarea class="textarea rich-textarea" name="richContent" value="{{richContent}}" placeholder="可粘贴HTML内容，如产品亮点、规格参数等格式化介绍；也可点击下方按钮插入图片" />
+        <textarea class="textarea rich-textarea" name="richContent" value="{{richContent}}" placeholder="可粘贴HTML文字内容，也可点击下方按钮插入图片" />
         <view class="field-hint">
-          <text>支持 HTML 标签。点击右侧按钮插入本地图片：</text>
+          <text>图片会单独保存并在详情页渲染。</text>
           <button class="insert-image-btn" bindtap="insertImage" size="mini">+ 插入图片</button>
+        </view>
+        <view class="rich-image-list" wx:if="{{richImages.length}}">
+          <image wx:for="{{richImages}}" wx:key="index" class="rich-image-preview" src="{{item}}" mode="aspectFill"></image>
         </view>
       </view>
     </view>

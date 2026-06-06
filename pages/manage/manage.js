@@ -45,6 +45,6 @@ Page({
 
   goDetail(event) {
     const { id } = event.currentTarget.dataset
-    wx.navigateTo({ url: `/pages/detail/detail?id=${id}` })
+    wx.navigateTo({ url: `/pages/manage-detail/manage-detail?id=${id}` })
   }
 })

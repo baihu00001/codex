@@ -31,5 +31,9 @@ Page({
 
   goManage() {
     wx.navigateTo({ url: '/pages/manage/manage' })
+  },
+
+  goProfile() {
+    wx.navigateTo({ url: '/pages/seller-profile/seller-profile' })
   }
 })

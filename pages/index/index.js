@@ -3,7 +3,8 @@ const auctionUtil = require('../../utils/auction')
 
 Page({
   data: {
-    auctions: []
+    auctions: [],
+    sellerName: ''
   },
 
   onShow() {
@@ -27,7 +28,11 @@ Page({
         const weight = { active: 1, floor: 2, ended: 3, sold: 4 }
         return (weight[a.status] || 9) - (weight[b.status] || 9)
       })
-    this.setData({ auctions })
+    const profile = store.getSellerProfile()
+    this.setData({
+      auctions,
+      sellerName: profile.storeName || ''
+    })
   },
 
   startTimer() {

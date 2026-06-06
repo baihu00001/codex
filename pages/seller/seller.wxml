@@ -22,21 +22,22 @@
     <view class="section-title">常用操作</view>
     <button class="button-primary action" bindtap="goPublish">发布新拍卖</button>
     <button class="button-plain action" bindtap="goManage">拍卖管理</button>
+    <button class="button-plain action" bindtap="goProfile">编辑店铺信息</button>
   </view>
 
   <view class="card">
     <view class="section-title">经营概览</view>
     <view class="info-row">
       <text>触底待成交</text>
-      <text>{{stats.floor}} 场</text>
+      <text class="value-text">{{stats.floor}} 场</text>
     </view>
     <view class="info-row">
       <text>累计举牌</text>
-      <text>{{stats.bidCount}} 次</text>
+      <text class="value-text">{{stats.bidCount}} 次</text>
     </view>
     <view class="info-row">
       <text>成交订单</text>
-      <text>{{stats.orderCount}} 单</text>
+      <text class="value-text">{{stats.orderCount}} 单</text>
     </view>
   </view>
 </view>
