@@ -4,8 +4,10 @@
     "pages/detail/detail",
     "pages/order/order",
     "pages/seller/seller",
+    "pages/seller-profile/seller-profile",
     "pages/publish/publish",
-    "pages/manage/manage"
+    "pages/manage/manage",
+    "pages/manage-detail/manage-detail"
   ],
   "window": {
     "navigationBarTitleText": "降价拍卖",

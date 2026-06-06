@@ -1,0 +1,72 @@
+<view class="page" wx:if="{{auction}}">
+  <view class="card">
+    <view class="title-row">
+      <view class="manage-title">{{auction.title}}</view>
+      <view class="tag {{auction.status === 'sold' ? 'green' : auction.status === 'ended' ? 'gray' : ''}}">{{auction.statusLabel}}</view>
+    </view>
+    <view class="price-line">
+      <text class="currency">¥</text>
+      <text class="current-price">{{auction.priceText}}</text>
+    </view>
+    <view class="price-sub">起拍 ¥{{auction.startPriceText}} · 保底 ¥{{auction.reservePriceText}}</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">数据概览</view>
+    <view class="stats-grid">
+      <view class="stat-card">
+        <view class="stat-value">{{auction.participantCount}}</view>
+        <view class="stat-label">参与人数</view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-value">{{auction.bidCount}}</view>
+        <view class="stat-label">举牌次数</view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-value">{{auction.countdown}}</view>
+        <view class="stat-label">{{auction.status === 'floor' ? '优先剩余' : auction.status === 'active' ? '剩余时间' : '已结束'}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{participants.length}}">
+    <view class="section-title">参与者 ({{participants.length}}人)</view>
+    <view wx:for="{{participants}}" wx:key="userId" class="participant-row">
+      <view class="participant-name">{{item.userName}}</view>
+      <view class="participant-count">举牌 {{item.bidCount}} 次</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">举牌记录</view>
+    <view wx:if="{{records.length === 0}}" class="empty small">暂无举牌</view>
+    <view wx:for="{{records}}" wx:key="id" class="record-row">
+      <view>
+        <view class="record-user">{{item.userName}}</view>
+        <view class="record-time">{{item.timeText}}</view>
+      </view>
+      <view class="record-price">-¥{{item.dropText}} → ¥{{item.priceText}}</view>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{auction.status === 'sold' && sellerProfile.contactPhone}}">
+    <view class="section-title">成交信息</view>
+    <view class="info-row">
+      <text>买家</text>
+      <text class="value-text">{{auction.buyerName}}</text>
+    </view>
+    <view class="info-row">
+      <text>成交价</text>
+      <text class="price">¥{{auction.priceText}}</text>
+    </view>
+    <view class="info-row">
+      <text>成交时间</text>
+      <text class="value-text">{{soldTimeText}}</text>
+    </view>
+  </view>
+
+  <view class="action-area">
+    <button class="button-danger" wx:if="{{auction.status === 'active'}}" bindtap="endAuction">结束拍卖</button>
+    <button class="button-plain" bindtap="goBack">返回管理列表</button>
+  </view>
+</view>

@@ -1,0 +1,67 @@
+<view class="page">
+  <view class="card">
+    <view class="section-title">店铺信息</view>
+
+    <view class="field">
+      <view class="label">店铺名称</view>
+      <input class="input" value="{{profile.storeName}}" bindinput="onField" data-field="storeName" placeholder="输入店铺名称" />
+    </view>
+
+    <view class="field">
+      <view class="label">店铺Logo</view>
+      <view class="logo-picker" bindtap="chooseLogo">
+        <image wx:if="{{profile.storeLogo}}" src="{{profile.storeLogo}}" mode="aspectFill" class="logo-img"></image>
+        <text wx:else class="logo-placeholder">点击选择Logo</text>
+      </view>
+    </view>
+
+    <view class="field">
+      <view class="label">店铺简介</view>
+      <textarea class="textarea" value="{{profile.storeDescription}}" bindinput="onField" data-field="storeDescription" placeholder="简单介绍你的店铺" />
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">联系方式</view>
+
+    <view class="field">
+      <view class="label">联系人</view>
+      <input class="input" value="{{profile.contactPerson}}" bindinput="onField" data-field="contactPerson" placeholder="姓名" />
+    </view>
+
+    <view class="field">
+      <view class="label">联系电话</view>
+      <input class="input" type="number" value="{{profile.contactPhone}}" bindinput="onField" data-field="contactPhone" placeholder="手机号" />
+    </view>
+
+    <view class="field">
+      <view class="label">联系地址</view>
+      <input class="input" value="{{profile.contactAddress}}" bindinput="onField" data-field="contactAddress" placeholder="发货/自提地址" />
+    </view>
+
+    <view class="field">
+      <view class="label">微信二维码</view>
+      <view class="qr-picker" bindtap="chooseQR">
+        <image wx:if="{{profile.wechatQR}}" src="{{profile.wechatQR}}" mode="aspectFit" class="qr-img"></image>
+        <text wx:else class="qr-placeholder">点击上传微信二维码</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">拍卖规则</view>
+    <view class="field">
+      <textarea class="textarea rules-textarea" value="{{profile.auctionRules}}" bindinput="onField" data-field="auctionRules" placeholder="设置拍卖规则（支持HTML）" />
+    </view>
+    <view class="rules-preview" wx:if="{{rulesPreview}}">
+      <view class="label">预览效果</view>
+      <block wx:for="{{rulesSegments}}" wx:key="index">
+        <rich-text wx:if="{{item.type === 'text'}}" class="rich-preview" nodes="{{item.content}}"></rich-text>
+        <image wx:if="{{item.type === 'image'}}" class="rich-preview-img" src="{{item.src}}" mode="widthFix"></image>
+      </block>
+      <view wx:if="{{!rulesSegments || rulesSegments.length === 0}}" class="muted" style="text-align:center;padding:20rpx 0">输入规则后在此预览</view>
+    </view>
+  </view>
+
+  <button class="button-primary" bindtap="saveProfile">保存</button>
+</view>
